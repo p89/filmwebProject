@@ -1,0 +1,81 @@
+<?php
+
+namespace SqlSetupBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Genre
+ *
+ * @ORM\Table(name="genre")
+ * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\GenreRepository")
+ */
+class Genre
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Film", type="integer", unique=false)
+     * @ORM\ManyToMany(targetEntity="Film", mappedBy="genre")
+     */
+    private $film;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=100, unique=true)
+     */
+    private $name;
+
+
+    public function __construct()
+    {
+        $this->film = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Genre
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+

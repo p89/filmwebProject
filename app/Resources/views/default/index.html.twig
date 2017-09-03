@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/ion.rangeSlider.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/ion.rangeSlider.skinHTML5.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/normalize.css') }}" />
+
+<head>
+    <meta charset="UTF-8">
+    <title>Get Lucky!</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="mainImage">
+
+        <img class="poster" src="{{ asset('covers/' ~ coverSrc) }}">
+
+    </div>
+
+    <div class="mainContent">
+        <div class="divInline">
+            <div class="filmPlTitle">{{ filmPlTitle }}</div>
+            <div class="filmRating">Ocena: {{ filmRating }}</div>
+        </div>
+        <div class="divInline">
+            <div class="filmEnTitle">{{ filmEnTitle }}</div>
+            <div class="filmGenre">
+                •
+                {% for genre in filmGenre %}
+                    {{ genre|default('Brak gatunku') }} •
+                {% endfor %}
+
+
+            </div>
+         </div>
+        <div class="filmYear">{{ filmYear }}
+            {% for country in filmCountry %}
+                , {{ country }}
+            {% endfor %}
+        </div>
+
+
+
+        <div class="divInline">
+            <div class="filmDirector">
+                Reżyseria:
+                {% for director in filmDirector %}
+                    <li>{{ director }}</li>
+                {% endfor %}
+
+            </div>
+
+
+            <div class="filmScreenwriter">
+                Scenariusz:
+                {% for screenwriter in filmScreenwriter %}
+                    <li>{{ screenwriter }}</li>
+                {% endfor %}
+
+            </div>
+        </div>
+
+
+        <div class="filmDesc">{{ filmDesc|default('Brak opisu.') }}</div>
+        <div class="filmReview">{{ filmReview|default('Brak recenzji.') }}</div>
+
+    </div>
+
+    <div class="filters">
+        <div class="divInline">
+            <div id="filterFields">
+                <input class="typeahead" id="filmGenreFilter" type="text" placeholder="Gatunki">
+            </div>
+
+            <div class="sliders">
+                Ocena:<br><br><input type="text" id="Rating">
+
+                Rok:<br><br><input type="text" id="yearRange">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="random">Get Lucky!</button>
+    </div>
+
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ asset('js/ion-rangeSlider/ion.rangeSlider.min.js') }}"></script>
+<script src="{{ asset('js/typeahead.bundle.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script src="{{ asset('js/js.js') }}"></script>
+
+</html>

@@ -1,0 +1,21 @@
+parser:
+    resource: "@ParserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sql_setup:
+    resource: "@SqlSetupBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+get_film:
+    resource: "@AppBundle/Controller/FilmController.php"
+    prefix: /getFilm/
+    type: rest

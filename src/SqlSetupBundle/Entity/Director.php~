@@ -1,0 +1,134 @@
+<?php
+
+namespace SqlSetupBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Director
+ *
+ * @ORM\Table(name="director")
+ * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\DirectorRepository")
+ */
+class Director
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="FilmwebID", type="integer", unique=true)
+     */
+    private $filmwebID;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Film", type="integer", unique=false)
+     * @ORM\ManyToMany(targetEntity="Film", mappedBy="director")
+     */
+    private $film;
+
+    public function __construct()
+    {
+        $this->film = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set filmwebID
+     *
+     * @param integer $filmwebID
+     *
+     * @return Director
+     */
+    public function setFilmwebID($filmwebID)
+    {
+        $this->filmwebID = $filmwebID;
+
+        return $this;
+    }
+
+    /**
+     * Get filmwebID
+     *
+     * @return int
+     */
+    public function getFilmwebID()
+    {
+        return $this->filmwebID;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Director
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set film
+     *
+     * @param integer $film
+     *
+     * @return Director
+     */
+    public function setFilm($film)
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    /**
+     * Get film
+     *
+     * @return int
+     */
+    public function getFilm()
+    {
+        return $this->film;
+    }
+}
+

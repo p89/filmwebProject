@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+
+body {
+    background-color: #505160;
+    color: #eee;
+}
+
+* {box-sizing: border-box;}
+
+
+.random {
+
+    width: 160px;
+    height: 40px;
+    background-color: #aebd38;
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Patua One', cursive;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #becd68;
+}
+
+.random:hover {
+    background-color: #becd68;
+    border: 2px solid #deed98;
+}
+
+.poster {
+
+    border: 2px #fff solid;
+    width: 100%;
+}
+
+.filmPlTitle {
+    font-size: 28px;
+    font-family: 'Lato', sans-serif;
+    float: left;
+}
+
+.filmEnTitle {
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    color: #ccc;
+    float: left;
+}
+
+.filmRating {
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    color: #eaff76;
+    font-weight: bold;
+    float: right;
+    margin-left: 15px;
+}
+
+.filmYear {
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    color: #ccc;
+}
+
+.filmGenre {
+
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: #79a254;
+    float: right;
+}
+
+.divInline {
+    display: inline-block; width: 100%;
+}
+
+.filmDirector, .filmScreenwriter {
+    margin-top: 15px;
+    margin-right: 15px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: #eee;
+    float: left;
+}
+
+.filmDesc, .filmReview {
+    margin-top: 15px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    color: #ccc;
+}
+
+.filmDesc {
+    font-style: italic;
+}
+
+.sliders {
+    width: 100%;
+    float: left;
+}
+
+/*
+@media screen and (min-width: 1150px) {
+    !* STYLES HERE *!
+}
+*/
+
+.wrapper > div {
+
+    padding: 1em;
+    color: #eee;
+}
+
+.wrapper {
+
+
+    max-width: 1100px;
+    margin: 15px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(50px, auto);
+}
+.mainImage {
+    grid-column: 1;
+    grid-row: 1 / 5;
+    min-width: 280px;
+    align-self: start;
+    justify-self: stretch;
+}
+.mainContent {
+    grid-column: 2 / 4;
+    grid-row: 1 / 5;
+}
+
+.filters {
+    grid-column: 1/4;
+    grid-row: 6;
+}
+.buttons {
+    grid-column: 1 / 4;
+    grid-row: 5;
+    align-self: center;
+    justify-self: center;
+}
+
+
+#filterFields input {
+    margin-top: 15px;
+    margin-bottom: 35px;
+    width: 100%;
+    border: #88a2bE solid 2px;
+    border-radius: 5px;
+    background-color: #68829E;
+    color: #eee !important;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    text-indent: 10px;
+    line-height: 1.5em;
+}
+
+.twitter-typeahead {
+    width: 100%;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    line-height: 1.5em;
+    color: #ccc;
+    text-indent: 10px;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    line-height: 1.5em;
+    color: #ccc;
+    text-indent: 10px;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    line-height: 1.5em;
+    color: #ccc;
+    text-indent: 10px;
+}
+:-moz-placeholder { /* Firefox 18- */
+    line-height: 1.5em;
+    color: #ccc;
+    text-indent: 10px;
+}
+
+
+/* Typeahead */
+
+.tt-query {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color: #000;
+}
+
+.tt-menu {    /* used to be tt-dropdown-menu in older versions */
+    width: 422px;
+    margin-top: 4px;
+    padding: 4px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    color: #333;
+}
+
+.tt-suggestion {
+    padding: 3px 20px;
+    line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor,.tt-suggestion:hover {
+    color: #fff;
+    background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
