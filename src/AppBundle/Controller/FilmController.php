@@ -38,21 +38,21 @@ class FilmController extends FOSRestController
                 JOIN genre g on fg.genre_id = g.id
                 JOIN (SELECT CEIL(RAND() *
                             (SELECT MAX(seqnum)
-                                   FROM (
-                                      SELECT f3.seqnum
-                                      FROM film f3
-                                      JOIN film_genre fg2 on fg2.film_id = f3.id
-                                      JOIN genre g2 on fg2.genre_id = g2.id
-                                      WHERE g2.Name = COALESCE(NULLIF(:filmGenre, ''), g2.Name)
-                        AND f3.Rating >= :minRating
-                        AND f3.Rating <= :maxRating
-                        AND f3.Year >= :minYear
-                        AND f3.Year <= :maxYear
-                        AND f3.Votes >= :minVotes
-                        AND f3.Votes <= :maxVotes
-                                       ORDER BY seqnum DESC
-                                      LIMIT 1
-                                   ) maxfilmseq)) AS seqnum) AS f2
+                             FROM (
+                                  SELECT f3.seqnum
+                                  FROM film f3
+                                  JOIN film_genre fg2 on fg2.film_id = f3.id
+                                  JOIN genre g2 on fg2.genre_id = g2.id
+                                  WHERE g2.Name = COALESCE(NULLIF(:filmGenre, ''), g2.Name)
+                                        AND f3.Rating >= :minRating
+                                        AND f3.Rating <= :maxRating
+                                        AND f3.Year >= :minYear
+                                        AND f3.Year <= :maxYear
+                                        AND f3.Votes >= :minVotes
+                                        AND f3.Votes <= :maxVotes
+                                  ORDER BY seqnum DESC
+                                  LIMIT 1
+                                  ) maxfilmseq)) AS seqnum) AS f2
                 WHERE f1.seqnum >= f2.seqnum
                         AND g.Name = COALESCE(NULLIF(:filmGenre, ''), g.Name)
                         AND f1.Rating >= :minRating
@@ -61,8 +61,8 @@ class FilmController extends FOSRestController
                         AND f1.Year <= :maxYear
                         AND f1.Votes >= :minVotes
                         AND f1.Votes <= :maxVotes
-                    ORDER BY f1.seqnum ASC
-                    LIMIT 1";
+                ORDER BY f1.seqnum ASC
+                LIMIT 1";
 
         $em = $this->getDoctrine()->getManager();
         $connection = $em->getConnection();
