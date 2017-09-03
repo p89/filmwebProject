@@ -87,7 +87,7 @@ $(function() {
         min: 1890,
         max: 2020,
         from: 1970,
-        to: 2017,
+        to: 2017, 
         step: 1,
         onStart: function (data) {
             minYear = data.from;
@@ -173,8 +173,6 @@ $(function() {
             filmGenre: filmGenre
         };
 
-        console.log(film);
-
         $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -186,7 +184,6 @@ $(function() {
 
                 let data = JSON.parse(response);
 
-                console.log(data);
                 if (data['error']) {
                     alert(data['error']);
                 } else {

@@ -28,6 +28,7 @@ class DefaultController extends Controller
                                    )) AS seqnum) AS f2
                 WHERE     f1.seqnum >= f2.seqnum
                       AND f1.Rating >= 7
+                      AND f1.Votes >= 20000
                 ORDER BY f1.seqnum ASC
                 LIMIT 1";
 
