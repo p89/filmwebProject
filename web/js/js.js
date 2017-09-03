@@ -87,7 +87,7 @@ $(function() {
         min: 1890,
         max: 2020,
         from: 1970,
-        to: 2017, 
+        to: 2017,
         step: 1,
         onStart: function (data) {
             minYear = data.from;
@@ -172,6 +172,7 @@ $(function() {
             maxVotes: maxVotes,
             filmGenre: filmGenre
         };
+
 
         $.ajax({
                 type: 'POST',
