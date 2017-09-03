@@ -3,10 +3,6 @@
 namespace SqlSetupBundle\Controller;
 
 use Doctrine\DBAL\Driver\PDOException;
-use AccessPoints\API\Methods;
-use AccessPoints\API\Methods\getFilmComments;
-use AccessPoints\API\Methods\getFilmInfoFull;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SqlSetupBundle\Entity\Country;
 use SqlSetupBundle\Entity\Director;
 use SqlSetupBundle\Entity\Film;
@@ -14,23 +10,12 @@ use SqlSetupBundle\Entity\Genre;
 use SqlSetupBundle\Entity\Screenwriter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SqlSetupBundle\SqlSetupBundle;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use AccessPoints;
 
 
-
 class DefaultController extends Controller
 {
-
-    /*protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }*/
-
     /**
      * @Route("parser/{id}/{endId}")
      */
@@ -39,9 +24,6 @@ class DefaultController extends Controller
         set_time_limit(0);
 
         $filmweb = AccessPoints\Filmweb::instance();
-
-        //$filmwebUser = $this->container->getParameter('filmweb_login');
-        //$filmwebPass = $this->container->getParameter('filmweb_pass');
 
         $filmwebUser = $this->getParameter('filmweb_login');
         $filmwebPass = $this->getParameter('filmweb_pass');
@@ -294,8 +276,6 @@ class DefaultController extends Controller
                 echo "New film - id: " . $filmID . "<br>";
 
                 return new Response('New film - id: ' . $film->getId());
-
-
         }
     }
 }

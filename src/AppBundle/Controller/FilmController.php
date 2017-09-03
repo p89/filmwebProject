@@ -15,10 +15,12 @@ class FilmController extends FOSRestController
         $maxRating = $content->get('maxRating');
         $maxYear = $content->get('maxYear');
         $minYear = $content->get('minYear');
+        $minVotes = $content->get('minVotes');
+        $maxVotes = $content->get('maxVotes');
         $filmGenre = $content->get('filmGenre');
 
         /*$sql = "SELECT f1.id
-               FROM film AS f1 
+               FROM film AS f1
                JOIN film_genre fg on fg.film_id = f1.id
                JOIN genre g on fg.genre_id = g.id
                WHERE
@@ -46,6 +48,8 @@ class FilmController extends FOSRestController
                         AND f3.Rating <= :maxRating
                         AND f3.Year >= :minYear
                         AND f3.Year <= :maxYear
+                        AND f3.Votes >= :minVotes
+                        AND f3.Votes <= :maxVotes
                                        ORDER BY seqnum DESC
                                       LIMIT 1
                                    ) maxfilmseq)) AS seqnum) AS f2
@@ -55,6 +59,8 @@ class FilmController extends FOSRestController
                         AND f1.Rating <= :maxRating
                         AND f1.Year >= :minYear
                         AND f1.Year <= :maxYear
+                        AND f1.Votes >= :minVotes
+                        AND f1.Votes <= :maxVotes
                     ORDER BY f1.seqnum ASC
                     LIMIT 1";
 
@@ -67,6 +73,8 @@ class FilmController extends FOSRestController
         $stmt->bindValue(':maxRating', $maxRating);
         $stmt->bindValue(':maxYear', $maxYear);
         $stmt->bindValue(':minYear', $minYear);
+        $stmt->bindValue(':minVotes', $minVotes);
+        $stmt->bindValue(':maxVotes', $maxVotes);
         $stmt->execute();
         $randomID = $stmt->fetchAll();
 

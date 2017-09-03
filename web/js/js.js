@@ -4,6 +4,8 @@ $(function() {
     let maxYear = 2017;
     let minRating = 7;
     let maxRating = 10;
+    let minVotes = 10;
+    let maxVotes = 900000;
 
     let genres = ['Akcja', 'Animacja', 'Anime', 'Baśń','Biblijny', 'Biograficzny', 'Czarna komedia', 'Dla dzieci', 'Dla młodzieży', 'Dokumentalizowany',
      'Dokumentalny',
@@ -130,6 +132,32 @@ $(function() {
         }
     });
 
+    $("#votesRange").ionRangeSlider({
+        type: "double",
+        min: 0,
+        max: 900000,
+        from: 10000,
+        to: 900000,
+        step: 1000,
+        onStart: function (data) {
+            minVotes = data.from;
+            maxVotes = data.to;
+        },
+        onChange: function (data) {
+            minVotes = data.from;
+            maxVotes = data.to;
+        },
+        onFinish: function (data) {
+            minVotes = data.from;
+            maxVotes = data.to;
+        },
+        onUpdate: function (data) {
+            minVotes = data.from;
+            maxVotes = data.to;
+        }
+    });
+
+
     $('.random').on('click', function (event) {
         event.preventDefault();
 
@@ -140,8 +168,12 @@ $(function() {
             maxYear: maxYear,
             minRating: minRating,
             maxRating: maxRating,
+            minVotes: minVotes,
+            maxVotes: maxVotes,
             filmGenre: filmGenre
         };
+
+        console.log(film);
 
         $.ajax({
                 type: 'POST',
@@ -151,8 +183,10 @@ $(function() {
             })
             .done(function (response) {
 
+
                 let data = JSON.parse(response);
 
+                console.log(data);
                 if (data['error']) {
                     alert(data['error']);
                 } else {
