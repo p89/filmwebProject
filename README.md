@@ -1,10 +1,10 @@
 filmwebProject
 ==============
 
-filmwebProject is the final project for coders's lab workshops. It consists of three parts:
+filmwebProject is the final project for [coders's lab](https://github.com/CodersLab) workshops. It consists of three parts:
  
  1. The parser of filmweb.pl database based on open mobile API.
- 2. RestAPI using JSON available at /getFilm/films.{_format}
+ 2. RestAPI using JSON
  3. Deployment on the mobile server running linux (I used Sony Xperia Z3 Compact, resulting in compact :), waterproof (not really), battery powered server.
  
  
@@ -14,13 +14,13 @@ filmwebProject is the final project for coders's lab workshops. It consists of t
  
  #### Setup
  
-Firstly, you want to fire the following: 
+Firstly, you want to execute the following: 
 ```
 $ git clone https://github.com/p89/filmwebProject.git
 $ cd filmwebProject
 $ composer install
 ```
-After the packages are ready go to app/config/parameters.yml and set the following parameters:
+After the packages are ready, go to app/config/parameters.yml and set the following parameters:
 ```
 database_host: 127.0.0.1
 database_port: null
@@ -28,7 +28,7 @@ database_name: dbToStoreMovies
 database_user: user
 database_password: password
 ```
- Then you need to go to [filmweb.pl](http://filmweb.pl) and create free account and the login credentials to as two extra parameters in the parameters.yml
+ Then visit [filmweb.pl](http://filmweb.pl) and create free account and add the login credentials to parameters.yml as two extra lines: 
 ```
 filmweb_login: yourLogin
 filmweb_pass: yourPass
@@ -36,7 +36,7 @@ filmweb_pass: yourPass
  Great, three things left. If you're going to use the parser from web-browser e.g Firefox, chances are your connection might be killed after few minutes due to the browser and server settings. In order to prevent this (please note you might need to adjust user access to conf files to edit them):
   * in Firefox, go to about:config address and change **http.response.timeout** to some large number like **60000**
   * in server configuration file (path for Apache) Config\Apache\extra\httpd-default.conf set **Timeout 60000** 
-  * in PHP.ini file Config\Php\php.ini set **max_execution_time = 300**
+  * in PHP.ini file Config\Php\php.ini set **max_execution_time = 60000**
   
   Done!
   
@@ -110,30 +110,30 @@ $ bin/console doctrine:schema:validate
  
  ### 4. Extras: SQL optimalization 
  
- Given the application will run on a Snapdragon, performance  seem to be an issue even during development, when working on a database of 1/10th the final size. I worked on the improvement of the query in three iterations - from total disaster to an acceptable result.
+ Given the application will run on a Snapdragon, performance  seemed to be an issue even during development, when working on a database of 1/10th the final size. Query was improved in three iterations - from total disaster to an acceptable result.
  
  #### Problem
  
- It turns out filmweb's database contains not only movies, but also games and lots of movies with no votes, description, genres etc. I wanted to get rid of those for in the end by running few simple queries.
+ It turns out filmweb's database contains lots of movies with no data (votes, description, genres etc.) plus, surprisingly, also computer games. I got rid of those by running few simple queries.
  
- It decreases the database records by ~60%, creating gaps which meant it was no longer possible to choose film by random in the easy way i.e.
+ As a result database lost ~60% of its results, creating gaps which meant it was no longer possible to choose film by random in the easy way i.e.
  
  ```php
  $em->getRepository('SqlSetupBundle:Film')->findOneById(rand(minID,maxID));
  ```
  ##### 1st solution
  
- The simplest turnaround for dev was to fetch all and then pick one by random
+ The simplest turnaround for dev was to fetch all movies and then pick one by random
  
  ```
  $films = $em->getRepository('SqlSetupBundle:Film')->findAll();
  $film = $films[rand(0, count($films)];
  ```
- The query took over 5 seconds on i7 Core to execute and way behond 500MB of RAM - disaster.
+ The query took over 5 seconds on i7 Core to execute and way beyond 500MB of RAM - duh.
   
  ##### 2nd solution
   
- I opted to use native SQL query, with the standardized rand() function. It also let me to add filtering WHERE clauses: 
+ I opted to use native SQL query, with the standardized rand() function. I also added WHERE clauses for AJAX calls on button click: 
  ```sql
  SELECT f1.id
     FROM film AS f1
@@ -149,16 +149,16 @@ $ bin/console doctrine:schema:validate
     ORDER BY rand() ASC
     LIMIT 1
 ```
-**1.95s** to execute, a bit better, but still unacceptable. Also rather than adding another IF statement in php, I opted for the optional parameter structure  
+**1.95s** to execute, a bit better, but still unacceptable. Also rather than adding another IF statement in php, I reached out for the optional parameter construct  
 
 ```sql
 WHERE g.Name = COALESCE(NULLIF(:filmGenre, ''), g.Name)
 ```
-The poor performance of this built-in feature lines in table scan necessary to order by random values. It cannot be turned in the binary tree (indexed) with O(log n), therefore it has a linear complexity O(n).
+The poor performance of this built-in feature lies in table scan necessary to order by random values. It cannot be turned into binary search (indexed) and capitalize the O(log n) complexity, ending up with linear complexity O(n).
 
  ##### 3rd & Final solution
  
- There are many approaches on how to optimize such query. One of the more popular solution is to use a query like:
+ There are many approaches on how to optimize such query. One of the more popular solution is to use a query like (in this case we order by indexed column and use rand() only to generate one input):
  
  ```sql
 SELECT name
@@ -175,16 +175,16 @@ SELECT name
 However, there are two issues with that:
 
 1. It doesn't work when you have gaps in the table
-2. It can seldomly return empty result after adding filtering WHERE clause (a case where the selected MAX(ID) does not meet the filtering criteria from the outer query).
+2. It can seldomly return empty result after adding filtering WHERE clause (a case where the selected MAX(ID) does not meet the filtering criteria from the outer query) even when table has no gaps.
 
-Firstly, I've created another column with sequential number, to get rid of gaps.
+Ok, let's fine-tune it. Firstly, I've created another column with sequential number, to get rid of gaps.
 
 ```
 SELECT @seqnum:=0;
 UPDATE film SET seqnum = @seqnum:=@seqnum+1;
 ```
 
-The final step was to write a query in such a way that it won't return empty results ever, while remaining efficient.
+The final step was to write a query in such a way that it won't ever return empty results, while remaining efficient.
 
 Here it is:
 
