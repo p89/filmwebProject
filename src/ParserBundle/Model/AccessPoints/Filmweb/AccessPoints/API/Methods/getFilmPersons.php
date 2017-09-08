@@ -47,24 +47,29 @@ final class getFilmPersons extends \AccessPoints\API\Methods
         $type = \AccessPoints\Filmweb::$roles[$this->type];
         
         $i = 0;
-        
+
+
+        if (empty($response)) {
+            return false;
+        }
+
         foreach($response as $item)
         {
             $i = new \stdClass;
-            
+
             foreach($this->_response_keys as $k => $v)
             {
                 if($v === 'personPhoto' AND ! is_null($item[$k]))
                 {
                     $item[$k] = \AccessPoints\Filmweb::$_config['personImageUrl'] . $item[$k];
                 }
-                
+
                 $i->$v = $item[$k];
             }
-            
+
             $data[] = $i;
         }
-        
+
         return (object) $data;
     }
 }

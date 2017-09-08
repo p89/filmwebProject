@@ -5,13 +5,13 @@ namespace SqlSetupBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
- * Director
- *
- * @ORM\Table(name="director", indexes={@ORM\Index(name="search_idx", columns={"name", "filmwebid"})})
- * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\DirectorRepository")
- */
+* Director
+*
+* @ORM\Table(name="director", indexes={@ORM\Index(name="search_idx", columns={"name", "filmwebid"})})
+* @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\DirectorRepository")
+*/
+
 class Director
 {
     /**

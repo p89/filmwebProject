@@ -6,11 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Film
- *
- * @ORM\Table(name="film", indexes={@ORM\Index(name="search_idx", columns={"rating", "year", "seqnum"})})
- * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\FilmRepository")
- */
+* Film
+*
+* @ORM\Table(name="film", indexes={@ORM\Index(name="search_idx", columns={"rating", "year", "seqnum"})})
+* @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\FilmRepository")
+*/
+
 class Film
 {
     /**
@@ -98,6 +99,15 @@ class Film
      * @ORM\Column(name="seqnum", type="integer", nullable=true)
      */
     private $seqnum;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagepath", type="text", nullable=true)
+     */
+    private $imagepath;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="Country", inversedBy="film")
@@ -332,6 +342,32 @@ class Film
     {
         return $this->review;
     }
+
+    /**
+     * Set imagepath
+     *
+     * @param string $imagepath
+     *
+     * @return Film
+     */
+    public function setImagepath($imagepath)
+    {
+        $this->imagepath = $imagepath;
+
+        return $this;
+    }
+
+    /**
+     * Get imagepath
+     *
+     * @return string
+     */
+    public function getImagepath()
+    {
+        return $this->imagepath;
+    }
+
+
 
     /**
      * Set country

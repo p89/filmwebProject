@@ -136,9 +136,9 @@ $(function() {
         type: "double",
         min: 0,
         max: 900000,
-        from: 10000,
+        from: 50,
         to: 900000,
-        step: 1000,
+        step: 50,
         onStart: function (data) {
             minVotes = data.from;
             maxVotes = data.to;
@@ -192,7 +192,7 @@ $(function() {
                     let review = data['filmReview'] ? data['filmReview'] : "Brak recenzji.";
                     let description = data['filmDesc'] ? data['filmDesc'] : "Brak opisu.";
                     let year = data['filmYear'] ? data['filmYear'] : "Nieznany";
-                    let cover = `<img class="poster" src="covers/${data['coverSrc']}">`;
+                    let cover = `<img class="poster" src="${data['coverSrc']}">`;
 
                     if (data['filmGenre'].length > 0) {
                         genres = "•";

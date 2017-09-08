@@ -115,8 +115,8 @@ class FilmController extends FOSRestController
             $actualScreenwriters[] = $actualFilm->getScreenwriter()[$i]->getName() ? $actualFilm->getScreenwriter()[$i]->getName() : null;
         }
 
-        $picturePath = "../web/covers/obrazek" . $actualFilm->getId() . ".jpg";
-        $coverSrc = file_exists($picturePath) ? "obrazek" . $actualFilm->getId() . ".jpg" : "nopicture.gif";
+        $picturePath = $actualFilm->getImagepath();
+        $coverSrc = empty($picturePath) ? "covers/nopicture.gif" : $picturePath;
 
         $resultJSON = json_encode([
             'coverSrc' => $coverSrc,

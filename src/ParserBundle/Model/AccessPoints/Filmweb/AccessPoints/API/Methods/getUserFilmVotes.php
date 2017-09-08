@@ -63,8 +63,6 @@ final class getUserFilmVotes extends \AccessPoints\API\Methods
         $key = $this->_response_keys[0];        
         $i = 0;
 
-        var_dump($response);
-        var_dump($this->_response_keys[2]);
 
         return (object) $data;
     }

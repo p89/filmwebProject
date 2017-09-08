@@ -7,13 +7,13 @@ class Methods
     protected $method = NULL;
     protected $_args = [];
     protected $method_query, $signature;
-    
+
     protected $post = FALSE;
 
-   /**
-    * @param array $args
-    * @throws \Exception
-    */
+    /**
+     * @param array $args
+     * @throws \Exception
+     */
     public function __construct($args)
     {
         if(count($this->_args) > count($args))
@@ -24,17 +24,17 @@ class Methods
             $this->$v = $args[$k];
         }
     }
-    
+
     public function execute()
     {
         $this->prepare();
         return $this->_process();
     }
 
-   /**
-    * @param object $response
-    * @return \stdClass
-    */
+    /**
+     * @param object $response
+     * @return \stdClass
+     */
     protected function parse($response)
     {
         if(!$response) {
@@ -51,10 +51,15 @@ class Methods
         }
 
     }
-    
+
     protected function getData($response)
     {
         $data = new \stdClass;
+
+        if (empty($response)) {
+            return false;
+        }
+
         foreach($response as $k => $v)
         {
             $key = $this->_response_keys[$k];
@@ -68,24 +73,25 @@ class Methods
                 $data->$key = $v;
             }
         }
+
         return $data;
     }
 
-   /**
-    * @return string
-    */
+    /**
+     * @return string
+     */
     protected function _process()
     {
         $method = '';
-        
+
         foreach($this->methods as $m => $v)
         {
             $method .= $m . ' ['.$v.']\n';
         }
-        
+
         $method_query = $method;
         $signature = $this->_createApiSignature($method);
-        
+
         $params = ['methods' => $method_query, 'signature' => $signature, 'version' => '1.0', 'appId' => 'android'];
 
         if($this->post)
@@ -109,12 +115,12 @@ class Methods
 
         return $this->parse($response);
     }
-    
-   /**
-    * Utworzenie sygnatury
-    * @param string $method
-    * @return string
-    */
+
+    /**
+     * Utworzenie sygnatury
+     * @param string $method
+     * @return string
+     */
     protected function _createApiSignature($method)
     {
         return '1.0,'.md5($method.'android'.\AccessPoints\Filmweb::KEY);

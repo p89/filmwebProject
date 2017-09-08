@@ -5,12 +5,14 @@ namespace SqlSetupBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * Screenwriter
- *
- * @ORM\Table(name="screenwriter", indexes={@ORM\Index(name="search_idx", columns={"name", "filmwebid"})})
- * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\ScreenwriterRepository")
- */
+* Screenwriter
+*
+* @ORM\Table(name="screenwriter", indexes={@ORM\Index(name="search_idx", columns={"name", "filmwebid"})})
+* @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\ScreenwriterRepository")
+*/
+
 class Screenwriter
 {
     /**

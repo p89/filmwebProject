@@ -6,11 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Genre
- *
- * @ORM\Table(name="genre", indexes={@ORM\Index(name="search_idx", columns={"name"})})
- * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\GenreRepository")
- */
+* Genre
+*
+* @ORM\Table(name="genre", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+* @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\GenreRepository")
+*/
+
 class Genre
 {
     /**

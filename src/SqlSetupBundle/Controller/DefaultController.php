@@ -126,6 +126,7 @@ class DefaultController extends Controller
                 $film->setDuration($getFilmInfo->duration);
                 $film->setPremiere(new \DateTime($getFilmInfo->premiereWorld));
                 $film->setPlTitle($getFilmInfo->title);
+                $film->setImagepath($getFilmInfo->imagePath);
                 $film->setFilmwebID($filmID);
 
                 if (is_object($getFilmReview)) {
@@ -260,7 +261,7 @@ class DefaultController extends Controller
                 }
 
 
-                $c = curl_init();
+                /*$c = curl_init();
                 curl_setopt($c, CURLOPT_URL, $getFilmInfo->imagePath);
                 curl_setopt($c, CURLOPT_HEADER, 0);
                 curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
@@ -271,7 +272,7 @@ class DefaultController extends Controller
                     $basedir = $_SERVER['DOCUMENT_ROOT'];
                     $picname = $basedir . '/obrazek' . $filmID . '.jpg';
                     file_put_contents($picname, $result);
-                }
+                }*/
 
                 echo "New film - id: " . $filmID . "<br>";
 

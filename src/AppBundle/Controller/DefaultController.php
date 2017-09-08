@@ -28,7 +28,7 @@ class DefaultController extends Controller
                                    )) AS seqnum) AS f2
                 WHERE     f1.seqnum >= f2.seqnum
                       AND f1.Rating >= 7
-                      AND f1.Votes >= 20000
+                      AND f1.Votes >= 1000
                 ORDER BY f1.seqnum ASC
                 LIMIT 1";
 
@@ -65,8 +65,8 @@ class DefaultController extends Controller
             $actualScreenwriters[] = $actualFilm->getScreenwriter()[$i]->getName() ? $actualFilm->getScreenwriter()[$i]->getName() : null;
         }
 
-        $picturePath = "../web/covers/obrazek" . $actualFilm->getId() . ".jpg";
-        $coverSrc = file_exists($picturePath) ? "obrazek" . $actualFilm->getId() . ".jpg" : "nopicture.gif";
+        $picturePath = $actualFilm->getImagepath();
+        $coverSrc = empty($picturePath) ? "covers/nopicture.gif" : $picturePath;
 
         return ['coverSrc' => $coverSrc,
             'filmPlTitle' => $actualFilm->getPlTitle(),
@@ -78,9 +78,8 @@ class DefaultController extends Controller
             'filmDirector' => $actualDirectors,
             'filmScreenwriter' => $actualScreenwriters,
             'filmDesc' => $actualFilm->getDescription(),
-            'filmReview' => $actualFilm->getReview(),
+            'filmReview' => $actualFilm->getReview()
             ];
-
     }
 }
 
