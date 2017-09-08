@@ -18,4 +18,4 @@
 /web/covers/
 /web/covers_backup.tar
 /web/covers.tar
-/.idea/
+/.idea/*
