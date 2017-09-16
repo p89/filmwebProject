@@ -108,6 +108,11 @@ $ bin/console doctrine:schema:validate
  
  ### 3. Ubuntu mobile webserver
  
+ I describe the process of deployment a LAMP stack on an Android phone in a 2-part article, which can be found on my blog:
+ 
+ http://prochal.com/2017/09/turn-your-android-phone-into-a-web-server/
+ http://prochal.com/2017/09/turn-android-smartphone-linux-web-server-part-2/
+ 
  ### 4. Extras: SQL optimalization 
  
  Given the application will run on a Snapdragon, performance  seemed to be an issue even during development, when working on a database of 1/10th the final size. Query was improved in three iterations - from total disaster to an acceptable result.

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
 * Film
 *
-* @ORM\Table(name="film", indexes={@ORM\Index(name="search_idx", columns={"rating", "year", "seqnum"})})
+* @ORM\Table(name="film", indexes={@ORM\Index(name="search_idx", columns={"rating", "year", "votes", "seqnum"})})
 * @ORM\Entity(repositoryClass="SqlSetupBundle\Repository\FilmRepository")
 */
 
