@@ -111,6 +111,7 @@ $ bin/console doctrine:schema:validate
  I describe the process of deployment a LAMP stack on an Android phone in a 2-part article, which can be found on my blog:
  
  http://prochal.com/2017/09/turn-your-android-phone-into-a-web-server/
+ 
  http://prochal.com/2017/09/turn-android-smartphone-linux-web-server-part-2/
  
  ### 4. Extras: SQL optimalization 
